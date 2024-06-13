@@ -56,7 +56,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const Header = ({ setSearchQuery , deleteRecipeButtonHandler }) => {
+const Header = ({ setSearchQuery }) => {
   const { isAuthenticated, setIsAuthenticated } = useContext(Context);
   const navigate = useNavigate();
   const location = useLocation();

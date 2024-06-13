@@ -8,11 +8,10 @@ import { useTheme } from '@mui/material/styles';
 import EditRecipeDialog from '../components/EditRecipeDialog';
 import { toast } from 'react-hot-toast';
 
-const RecipeDetail = ({ recipes, setRecipes, deleteRecipeButtonHandler, deleteRecipe }) => {
+const RecipeDetail = ({ recipes, setRecipes}) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [recipe, setRecipe] = useState(null);
-  // const [deleteRecipe, setDeleteRecipe] = useState(false);
   const { user } = useContext(Context);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [userAndRecipeAuthor, setUserAndRecipeAuthor] = useState([null, null]);
@@ -21,13 +20,9 @@ const RecipeDetail = ({ recipes, setRecipes, deleteRecipeButtonHandler, deleteRe
 
   
   useEffect(() => {
-    deleteRecipeButtonHandler(false);
-    // setDeleteRecipe(false);
     const foundRecipe = recipes.find((r) => r._id === id);
     if (foundRecipe) {
       setRecipe(foundRecipe);
-      deleteRecipeButtonHandler(String(user._id) === String(foundRecipe.user));
-      // setDeleteRecipe(String(user._id) === String(foundRecipe.user));
     }
   }, [id, user, recipes]);
 

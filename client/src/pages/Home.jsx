@@ -46,10 +46,6 @@ const Home = () => {
     );
   }, [searchQuery, recipes]);
 
-  const deleteRecipeButtonHandler = (value) => {
-    setDeleteRecipe(value);
-  };
-
   const handleAddRecipe = (recipes) => {
     setRecipes(recipes);
     setFilteredRecipes(recipes);
@@ -57,7 +53,7 @@ const Home = () => {
 
   return (
     <>
-      <Header setSearchQuery={setSearchQuery} deleteRecipeButtonHandler={deleteRecipeButtonHandler}/>
+      <Header setSearchQuery={setSearchQuery} />
       <Routes>
         <Route path="/" element={
           <ProtectedRoute>
@@ -82,7 +78,7 @@ const Home = () => {
             </Box>
           </ProtectedRoute>
         } />
-        <Route path="/recipe/:id" element={<RecipeDetail recipes={recipes} setRecipes={setRecipes} deleteRecipeButtonHandler={deleteRecipeButtonHandler} deleteRecipe={deleteRecipe} />} />
+        <Route path="/recipe/:id" element={<RecipeDetail recipes={recipes} setRecipes={setRecipes} />} />
       </Routes>
     </>
   );
