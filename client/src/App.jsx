@@ -6,7 +6,7 @@ import { Toaster } from "react-hot-toast";
 import { useContext, useEffect } from "react";
 import axios from "axios";
 import { Context, server } from "./main";
-import RecipeDetail from "./components/RecipeDetail";
+
 function App() {
   const { setUser, setIsAuthenticated} = useContext(Context);
 

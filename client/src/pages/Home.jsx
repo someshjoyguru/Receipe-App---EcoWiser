@@ -22,7 +22,6 @@ const Home = () => {
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [addDialogOpen, setAddDialogOpen] = useState(false);
-  const [deleteRecipe, setDeleteRecipe] = useState(false);
 
   useEffect(() => {
     axios.get(`${server}/recipe`, {
