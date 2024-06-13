@@ -35,9 +35,7 @@ export const createRecipe = async (req, res, next) => {
 export const updateRecipe = async (req, res, next) => {
     try {
         const { _id } = req.body;
-        console.log(_id)+"id";
         const existingRecipe = await Recipe.findById(_id);
-        console.log(existingRecipe)+"existingRecipe";
         if (!existingRecipe) {
             return res.status(404).json({
                 success: false,

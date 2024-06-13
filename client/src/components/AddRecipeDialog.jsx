@@ -19,7 +19,6 @@ const AddRecipeDialog = ({ open, onClose, onAdd }) => {
         withCredentials: true,
       })
         .then((res) => {
-            console.log(res.data.recipes);
           onAdd(res.data.recipes);
         })
         .catch((e) => {
