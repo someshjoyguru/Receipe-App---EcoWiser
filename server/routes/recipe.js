@@ -7,6 +7,6 @@ const router = express.Router();
 router.get("/", isAuthenticated, showRecipes);
 router.post("/new", isAuthenticated, createRecipe);
 router.post("/edit", isAuthenticated, updateRecipe);
-router.delete("/", isAuthenticated, deleteRecipe);
+router.delete("/:id", isAuthenticated, deleteRecipe);
 
 export default router;

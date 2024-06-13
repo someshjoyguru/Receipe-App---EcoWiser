@@ -56,7 +56,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const Header = ({ setSearchQuery }) => {
+const Header = ({ setSearchQuery , deleteRecipeButtonHandler }) => {
   const { isAuthenticated, setIsAuthenticated } = useContext(Context);
   const navigate = useNavigate();
   const location = useLocation();
@@ -70,6 +70,7 @@ const Header = ({ setSearchQuery }) => {
       });
 
       toast.success("Logged Out Successfully");
+      deleteRecipeButtonHandler(false);
       setIsAuthenticated(false);
       navigate('/login');
     } catch (error) {

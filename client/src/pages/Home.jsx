@@ -3,10 +3,11 @@ import axios from "axios";
 import { Context, server } from "../main";
 import { toast } from "react-hot-toast";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import Cards from "../components/Cards";
 import RecipeDetail from "../components/RecipeDetail";
 import Header from "../components/Header";
+import AddRecipeDialog from "../components/AddRecipeDialog";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useContext(Context);
@@ -20,6 +21,8 @@ const Home = () => {
   const [recipes, setRecipes] = useState([]);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [addDialogOpen, setAddDialogOpen] = useState(false);
+  const [deleteRecipe, setDeleteRecipe] = useState(false);
 
   useEffect(() => {
     axios.get(`${server}/recipe`, {
@@ -27,7 +30,6 @@ const Home = () => {
     })
       .then((res) => {
         setRecipes(res.data.recipes);
-        setFilteredRecipes(res.data.recipes);
       })
       .catch((e) => {
         console.error(e);
@@ -44,13 +46,26 @@ const Home = () => {
     );
   }, [searchQuery, recipes]);
 
+  const deleteRecipeButtonHandler = (value) => {
+    setDeleteRecipe(value);
+  };
+
+  const handleAddRecipe = (recipes) => {
+    setRecipes(recipes);
+    setFilteredRecipes(recipes);
+  };
+
   return (
     <>
-      <Header setSearchQuery={setSearchQuery} />
+      <Header setSearchQuery={setSearchQuery} deleteRecipeButtonHandler={deleteRecipeButtonHandler}/>
       <Routes>
         <Route path="/" element={
           <ProtectedRoute>
             <Box sx={{ flexGrow: 1, p: 3 }}>
+            <Button onClick={() => setAddDialogOpen(true)} variant="contained" sx={{ mb: 2, mt: 2 }}>
+              Add Recipe
+            </Button>
+            <AddRecipeDialog open={addDialogOpen} onClose={() => setAddDialogOpen(false)} onAdd={handleAddRecipe} />
               <Grid container spacing={2}>
                 {filteredRecipes.length > 0 ? (
                   filteredRecipes.map((recipe) => (
@@ -67,7 +82,7 @@ const Home = () => {
             </Box>
           </ProtectedRoute>
         } />
-        <Route path="/recipe/:id" element={<RecipeDetail recipes={recipes} />} />
+        <Route path="/recipe/:id" element={<RecipeDetail recipes={recipes} setRecipes={setRecipes} deleteRecipeButtonHandler={deleteRecipeButtonHandler} deleteRecipe={deleteRecipe} />} />
       </Routes>
     </>
   );
